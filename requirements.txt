@@ -1,0 +1,2 @@
+# No heavy dependencies for this dummy test
+requests
