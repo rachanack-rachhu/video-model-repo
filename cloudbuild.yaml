@@ -1,0 +1,19 @@
+steps:
+  # Step 1: Install dependencies
+  - name: 'python:3.9'
+    entrypoint: 'pip'
+    args: ['install', '-r', 'requirements.txt']
+
+  # Step 2: Run the script
+  - name: 'python:3.9'
+    entrypoint: 'python3'
+    args: ['run.py']
+    env:
+      - 'S3_KEY=\${_FILE_NAME}'
+      - 'GCS_BUCKET=\${_BUCKET_NAME}'
+
+# Step 3: Upload the result to the Output Bucket
+artifacts:
+  objects:
+    location: 'gs://video-output-bucket-unique-123/results/\${_FILE_NAME}/'
+    paths: ['result.json']
